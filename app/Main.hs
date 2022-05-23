@@ -11,12 +11,10 @@ import           Text.Pandoc
     , WriterOptions
     , def
     , readHtml
-    , readLaTeX
     , readMarkdown
     , runPure
     , writeHtml5String
-    , writeLaTeX
-    , writeMarkdown
+    , writeJson
     )
 
 main :: IO ()
@@ -34,16 +32,13 @@ type PandocReader m = ReaderOptions -> T.Text -> m Pandoc
 
 readerOf :: PandocMonad m => String -> PandocReader m
 readerOf "markdown" = readMarkdown
-readerOf "html"     = readHtml
-readerOf "latex"    = readLaTeX
 readerOf _          = readMarkdown
 
 type PandocWriter m = WriterOptions -> Pandoc -> m T.Text
 
 writerOf :: PandocMonad m => String -> PandocWriter m
-writerOf "markdown" = writeMarkdown
 writerOf "html"     = writeHtml5String
-writerOf "latex"    = writeLaTeX
+writerOf "json"     = writeJson
 writerOf _          = writeMarkdown
 
 convert :: JSString -> JSString -> JSString -> JSString
