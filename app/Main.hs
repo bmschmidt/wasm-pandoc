@@ -14,7 +14,7 @@ import           Text.Pandoc
     , readMarkdown
     , runPure
     , writeHtml5String
-    , writeJson
+    , writeJSON
     )
 
 main :: IO ()
@@ -38,8 +38,8 @@ type PandocWriter m = WriterOptions -> Pandoc -> m T.Text
 
 writerOf :: PandocMonad m => String -> PandocWriter m
 writerOf "html"     = writeHtml5String
-writerOf "json"     = writeJson
-writerOf _          = writeMarkdown
+writerOf "json"     = writeJSON
+writerOf _          = writeJSON
 
 convert :: JSString -> JSString -> JSString -> JSString
 convert from to =
